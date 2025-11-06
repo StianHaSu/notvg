@@ -72,7 +72,6 @@ export default function LoginStatic() {
             </ul>
           </div>
 
-          <p>{input}</p>
           {/* Phone mock on the right bottom */}
           <div className="pointer-events-none absolute right-4 bottom-0 hidden translate-y-6 md:block">
             <PhoneMock />
