@@ -14,6 +14,10 @@ export default function LoginStatic() {
     setInput("")
   }
 
+  const hiddenPassword = () => {
+    return "*".repeat(input.length)
+  }
+
   const handleClick = () => {
     if (!showPasswordBox) {
       goToPassword()
@@ -99,7 +103,7 @@ export default function LoginStatic() {
             </label>
             <div className="mt-2 rounded-[999px] border border-gray-300 bg-white shadow-inner focus-within:border-[#0e1b3a] focus-within:ring-1 focus-within:ring-[#0e1b3a]">
               <input
-                value={input}
+                value={hiddenPassword()}
                 onChange={(input) => setInput(input.target.value)}
                 type="email"
                 placeholder={showPasswordBox ? "Skriv in passordet ditt" : "Skriv in e-postadressen din"}
